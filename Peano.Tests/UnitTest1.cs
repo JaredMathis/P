@@ -34,7 +34,7 @@ namespace Peano.Tests
             exercise1 = new QuantifiedTerm(
                 equals.Term(
                     add.Term(x, add.Term(y, _0)),
-                    add.Term(add.Term(x, y), _0)
+                    add.Term(x, add.Term(y, _0))
                 ),
                 new Quantifier(QuantifierType.All, x),
                 new Quantifier(QuantifierType.All, y)
@@ -47,7 +47,7 @@ namespace Peano.Tests
         {
             var a = exercise1.ToString();
 
-            Assert.AreEqual(a, "all x all y equals(add(x,add(y,0)),add(add(x,y),0))");
+            Assert.AreEqual(a, "all x all y equals(add(x,add(y,0)),add(x,add(y,0)))");
         }
 
         [TestMethod]
