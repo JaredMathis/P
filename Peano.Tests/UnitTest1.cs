@@ -56,9 +56,9 @@ namespace Peano.Tests
                     [x] = y
                 });
 
-            var c = ruleEqualsSubstitute.Apply(exercise1, b, 1).ToString();
+            var c = ruleEqualsSubstitute.Apply(exercise1, b, 1);
 
-            Assert.AreEqual(c, "all x all y equals(add(x,add(y,0)),add(x,y))");
+            Assert.AreEqual(c.ToString(), "all x all y equals(add(x,add(y,0)),add(x,y))");
         }
 
         [TestMethod]
@@ -73,9 +73,9 @@ namespace Peano.Tests
                     [x] = y
                 });
 
-            var c = ruleEqualsSubstitute.Apply(exercise1, b, 1).ToString();
+            var c = ruleEqualsSubstitute.Apply(exercise1, b, 1);
 
-            Assert.AreEqual(c, "all x all y equals(add(x,add(y,0)),add(x,y))");
+            Assert.AreEqual(c.ToString(), "all x all y equals(add(x,add(y,0)),add(x,y))");
         }
 
         [TestMethod]
