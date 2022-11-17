@@ -9,11 +9,6 @@
             return $@"{this.Name}";
         }
 
-        public override bool Equals(object? obj)
-        {
-            return ToString().Equals(obj.ToString());
-        }
-
         internal void ChangeTo(Variable value)
         {
             this.Name = value.Name;

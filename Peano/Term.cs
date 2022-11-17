@@ -8,5 +8,9 @@
         {
             yield return this;
         }
+        public override bool Equals(object? obj)
+        {
+            return ToString().Equals(obj.ToString());
+        }
     }
 }

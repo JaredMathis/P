@@ -4,6 +4,7 @@ namespace Peano.Tests
     public class UnitTest1
     {
         private RuleQuantifiedVariablesSubstitute ruleQuantifiedVariablesSubstitute;
+        private RuleEqualsSubstitute ruleEqualsSubstitute;
         private QuantifiedTerm axiom_peano6;
         private QuantifiedTerm exercise1;
         private Variable x;
@@ -22,6 +23,7 @@ namespace Peano.Tests
             y = new Variable() { Name = "y" };
 
             ruleQuantifiedVariablesSubstitute = new RuleQuantifiedVariablesSubstitute();
+            ruleEqualsSubstitute = new RuleEqualsSubstitute();
 
             axiom_peano6 = new QuantifiedTerm(
                 equals.Term(
@@ -52,11 +54,20 @@ namespace Peano.Tests
                 new Dictionary<Variable, Variable>
                 {
                     [x] = y
-                }).ToString();
+                });
+
+            var c = ruleEqualsSubstitute.Apply(exercise1, b, 1).ToString();
+
+            Assert.AreEqual(c, "all x all y equals(add(x,add(y,0)),add(x,y))");
+        }
+
+        [TestMethod]
+        public void e1_toString()
+        {
+            var a = exercise1.ToString();
 
             Assert.AreEqual(a, "all x all y equals(add(x,add(y,0)),add(x,add(y,0)))");
         }
-
         [TestMethod]
         public void TestMethod1()
         {
