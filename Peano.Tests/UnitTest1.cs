@@ -45,7 +45,7 @@ namespace Peano.Tests
         }
 
         [TestMethod]
-        public void e1()
+        public void e1_step1()
         {
             var a = exercise1.ToString();
 
