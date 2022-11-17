@@ -47,6 +47,13 @@ namespace Peano.Tests
         {
             var a = exercise1.ToString();
 
+            var b = ruleQuantifiedVariablesSubstitute.Apply(
+                axiom_peano6,
+                new Dictionary<Variable, Variable>
+                {
+                    [x] = y
+                }).ToString();
+
             Assert.AreEqual(a, "all x all y equals(add(x,add(y,0)),add(x,add(y,0)))");
         }
 
