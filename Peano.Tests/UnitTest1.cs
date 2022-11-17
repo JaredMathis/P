@@ -47,8 +47,6 @@ namespace Peano.Tests
         [TestMethod]
         public void e1_step2()
         {
-            var a = exercise1.ToString();
-
             var b = ruleQuantifiedVariablesSubstitute.Apply(
                 axiom_peano6,
                 new Dictionary<Variable, Variable>
@@ -64,8 +62,6 @@ namespace Peano.Tests
         [TestMethod]
         public void e1_step1()
         {
-            var a = exercise1.ToString();
-
             var b = ruleQuantifiedVariablesSubstitute.Apply(
                 axiom_peano6,
                 new Dictionary<Variable, Variable>
