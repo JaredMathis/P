@@ -5,6 +5,7 @@ namespace Peano.Tests
     {
         private RuleQuantifiedVariablesSubstitute ruleQuantifiedVariablesSubstitute;
         private QuantifiedTerm axiom_peano6;
+        private QuantifiedTerm exercise1;
         private Variable x;
         private Variable y;
         private FunctionType equals;
@@ -29,6 +30,24 @@ namespace Peano.Tests
                 ),
                 new Quantifier(QuantifierType.All, x)
                 );
+
+            exercise1 = new QuantifiedTerm(
+                equals.Term(
+                    add.Term(x, add.Term(y, _0)),
+                    add.Term(add.Term(x, y), _0)
+                ),
+                new Quantifier(QuantifierType.All, x),
+                new Quantifier(QuantifierType.All, y)
+                );
+
+        }
+
+        [TestMethod]
+        public void e1()
+        {
+            var a = exercise1.ToString();
+
+            Assert.AreEqual(a, "all x all y equals(add(x,add(y,0)),add(add(x,y),0))");
         }
 
         [TestMethod]
