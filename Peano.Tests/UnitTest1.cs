@@ -57,6 +57,7 @@ namespace Peano.Tests
                 );
 
         }
+
         [TestMethod]
         public void axiom_equals_commutes_toString()
         {
@@ -100,7 +101,8 @@ namespace Peano.Tests
 
             Assert.AreEqual(e.ToString(), "all x all y equals(add(add(x,y),0),add(x,y))");
 
-
+            //var f 
+            //Assert.AreEqual(f.ToString(), "all x all y equals(add(x,y),add(add(x,y),0))");
         }
 
         [TestMethod]
