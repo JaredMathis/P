@@ -8,6 +8,7 @@ namespace Peano.Tests
         private RuleModusPonens ruleModusPonens;
         private QuantifiedTerm axiom_equals_commutes;
         private QuantifiedTerm axiom_peano6;
+        private QuantifiedTerm axiom_equals;
         private QuantifiedTerm exercise1;
         private Variable x;
         private Variable y;
@@ -46,6 +47,14 @@ namespace Peano.Tests
             axiom_peano6 = new QuantifiedTerm(
                 equals.Term(
                     add.Term(x, _0),
+                    x
+                ),
+                new Quantifier(QuantifierType.All, x)
+                );
+
+            axiom_equals = new QuantifiedTerm(
+                equals.Term(
+                    x,
                     x
                 ),
                 new Quantifier(QuantifierType.All, x)
