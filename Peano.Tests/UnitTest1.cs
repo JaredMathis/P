@@ -53,12 +53,25 @@ namespace Peano.Tests
                 axiom_peano6,
                 new Dictionary<Variable, Term>
                 {
+                    [x] = y
+                },
+                new Quantifier(QuantifierType.All, y));
+
+            var c = ruleEqualsSubstitute.Apply(exercise1, b, 1);
+
+            Assert.AreEqual(c.ToString(), "all x all y equals(add(x,add(y,0)),add(x,y))");
+
+            var d = ruleQuantifiedVariablesSubstitute.Apply(
+                axiom_peano6,
+                new Dictionary<Variable, Term>
+                {
                     [x] = z
                 },
                 new Quantifier(QuantifierType.All, z));
+            Assert.AreEqual(d.ToString(), "all z equals(add(z,0),z)");
 
-            var d = ruleQuantifiedVariablesSubstitute.Apply(
-                b,
+            var e = ruleQuantifiedVariablesSubstitute.Apply(
+                d,
                 new Dictionary<Variable, Term>
                 {
                     [z] = add.Term(x, y)
@@ -66,9 +79,9 @@ namespace Peano.Tests
                 new Quantifier(QuantifierType.All, x),
                 new Quantifier(QuantifierType.All, y));
 
-            var c = ruleEqualsSubstitute.Apply(exercise1, d, 1);
+            Assert.AreEqual(e.ToString(), "all x all y equals(add(add(x,y),0),add(x,y))");
 
-            Assert.AreEqual(c.ToString(), "all x all y equals(add(x,add(y,0)),add(x,y))");
+            //var f = ruleEqualsSubstitute.Apply(c, e, 0);
         }
 
         [TestMethod]
