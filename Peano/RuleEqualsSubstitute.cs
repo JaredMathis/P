@@ -33,10 +33,8 @@ namespace Peano
                     found++;
                 }
             });
-            if (!replaced)
-            {
-                throw new Exception();
-            }
+            replaced.Assert();
+
             return after;
         }
     }
