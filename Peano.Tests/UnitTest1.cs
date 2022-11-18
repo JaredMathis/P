@@ -13,6 +13,7 @@ namespace Peano.Tests
         private Variable z;
         private FunctionType equals;
         private FunctionType add;
+        private Variable w;
         private Variable _0;
         private FunctionType implies;
 
@@ -23,6 +24,7 @@ namespace Peano.Tests
             equals = new FunctionType("equals");
             implies = new FunctionType("implies");
             add = new FunctionType("add");
+            w = new Variable() { Name = "w" };
             x = new Variable() { Name = "x" };
             y = new Variable() { Name = "y" };
             z = new Variable() { Name = "z" };
@@ -100,6 +102,28 @@ namespace Peano.Tests
                 new Quantifier(QuantifierType.All, y));
 
             Assert.AreEqual(e.ToString(), "all x all y equals(add(add(x,y),0),add(x,y))");
+
+            var f = ruleQuantifiedVariablesSubstitute.Apply(
+                axiom_equals_commutes,
+                new Dictionary<Variable, Term>
+                {
+                    [x] = w,
+                    [y] = z
+                },
+                new Quantifier(QuantifierType.All, w),
+                new Quantifier(QuantifierType.All, z));
+            Assert.AreEqual(f.ToString(), "all w all z implies(equals(w,z),equals(z,w))");
+
+            var g = ruleQuantifiedVariablesSubstitute.Apply(
+                f,
+                new Dictionary<Variable, Term>
+                {
+                    [w] = add.Term(add.Term(x,y),_0),
+                    [z] = add.Term(x, y)
+                },
+                new Quantifier(QuantifierType.All, x),
+                new Quantifier(QuantifierType.All, y));
+            Assert.AreEqual(g.ToString(), "all x all y implies(equals(add(add(x,y),0),add(x,y)),equals(add(x,y),add(add(x,y),0)))");
 
             //var f 
             //Assert.AreEqual(f.ToString(), "all x all y equals(add(x,y),add(add(x,y),0))");
