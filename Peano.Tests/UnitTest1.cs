@@ -23,9 +23,9 @@ namespace Peano.Tests
         public void TestInitialize()
         {
             _0 = new Variable() { Name = "0" };
-            equals = new FunctionType("equals");
-            implies = new FunctionType("implies");
-            add = new FunctionType("add");
+            equals = new BinaryFunctionType("equals");
+            implies = new BinaryFunctionType("implies");
+            add = new BinaryFunctionType("add");
             w = new Variable() { Name = "w" };
             x = new Variable() { Name = "x" };
             y = new Variable() { Name = "y" };
@@ -84,6 +84,17 @@ namespace Peano.Tests
             var a = axiom_equals_commutes.ToString();
 
             Assert.AreEqual(a, "all x all y implies(equals(x,y),equals(y,x))");
+        }
+
+        [TestMethod]
+        public void term_generator()
+        {
+            var functions = new[] { equals, implies, add };
+
+            var variables = new[] { w, x, y, z };
+            var constants = new[] { _0 };
+
+
         }
 
         [TestMethod]
@@ -249,9 +260,9 @@ namespace Peano.Tests
         [TestMethod]
         public void TestMethod1()
         {
-            FunctionType is_number = new FunctionType("is_number");
-            FunctionType implies = new FunctionType("implies");
-            FunctionType S = new FunctionType("S");
+            FunctionType is_number = new UnaryFunctionType("is_number");
+            FunctionType implies = new BinaryFunctionType("implies");
+            FunctionType S = new UnaryFunctionType("S");
             var axiom_peano1 = new QuantifiedTerm(
                 is_number.Term(_0),
                 new Quantifier(QuantifierType.Exists, _0)
