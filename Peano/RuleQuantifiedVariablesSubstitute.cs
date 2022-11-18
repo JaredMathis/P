@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Peano.Extensions.Msft;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,37 +10,30 @@ namespace Peano
     public class RuleQuantifiedVariablesSubstitute
     {
         public QuantifiedTerm Apply(
-            QuantifiedTerm before, 
-            Dictionary<Variable, Variable> data)
+            QuantifiedTerm before,
+            Dictionary<Variable, Term> data,
+            params Quantifier[] newQuantifiers)
         {
             var after = before.Clone();
 
-            foreach (var q in after.Quantifiers)
+            after.Quantifiers = newQuantifiers.ToList();
+
+            after.Term.TraverseWithChildren((twc, childAtI, i) =>
             {
-                Replace(data, q.Variable);
-            }
-            foreach (var child in after.Term.Traverse())
-            {
-                if (child is Variable)
+                var v = childAtI as Variable;
+                if (v != null)
                 {
-                    var v = (Variable)child;
-                    Replace(data, v);
+                    foreach (var variable in data)
+                    {
+                        if (variable.Key.Equals(v))
+                        {
+                            twc.Children = twc.Children.ReplaceAt(i, variable.Value).ToArray();
+                        }
+                    }
                 }
-            }
+            });
 
             return after;
-        }
-
-        private static void Replace(
-            Dictionary<Variable, Variable> data, Variable v)
-        {
-            foreach (var variable in data)
-            {
-                if (variable.Key.Equals(v))
-                {
-                    v.ChangeTo(variable.Value);
-                }
-            }
         }
     }
 }

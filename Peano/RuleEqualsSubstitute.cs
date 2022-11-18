@@ -21,27 +21,18 @@ namespace Peano
             var replaced = false;
 
             var after = before.Clone();
-            foreach (var t in after.Term.Traverse())
+            after.Term.TraverseWithChildren((twc, childAtI, i) =>
             {
-                var twc = t as TermWithChildren;
-                if (twc != null)
+                if (childAtI.Equals(left))
                 {
-                    var children = twc.Children;
-                    foreach (var i in children.Indices())
+                    if (found == position)
                     {
-                        Term childAtI = children.ElementAt(i);
-                        if (childAtI.Equals(left))
-                        {
-                            if (found == position)
-                            {
-                                twc.Children = children.ReplaceAt(i, right).ToArray();
-                                replaced = true;
-                            }
-                            found++;
-                        }
+                        twc.Children = twc.Children.ReplaceAt(i, right).ToArray();
+                        replaced = true;
                     }
+                    found++;
                 }
-            }
+            });
             if (!replaced)
             {
                 throw new Exception();
