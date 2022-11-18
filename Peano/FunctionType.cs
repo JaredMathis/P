@@ -9,19 +9,19 @@ namespace Peano
 {
     public class FunctionType
     {
-        public FunctionType(string name, int argumentCount)
+        public FunctionType(string name, int childrenCount)
         {
             Name = name;
-            _argumentCount = argumentCount;
+            ChildrenCount = childrenCount;
         }
 
         public string Name { get; set; }
 
-        private int _argumentCount;
+        public int ChildrenCount { get; set; }
 
         public FunctionTerm Term(params Term[] arguments)
         {
-            arguments.Length.Equals(_argumentCount).Assert();
+            arguments.Length.Equals(ChildrenCount).Assert();
 
             return new FunctionTerm(this, arguments.ToList());
         }
