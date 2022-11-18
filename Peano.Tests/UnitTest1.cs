@@ -60,15 +60,22 @@ namespace Peano.Tests
                 new Quantifier(QuantifierType.All, x)
                 );
 
-            exercise1 = new QuantifiedTerm(
-                equals.Term(
-                    add.Term(x, add.Term(y, _0)),
-                    add.Term(x, add.Term(y, _0))
-                ),
-                new Quantifier(QuantifierType.All, x),
-                new Quantifier(QuantifierType.All, y)
-                );
+            var axiom_equals_z = ruleQuantifiedVariablesSubstitute.Apply(
+                axiom_equals,
+                new Dictionary<Variable, Term>
+                {
+                    [x] = z
+                },
+                new Quantifier(QuantifierType.All, z));
 
+            exercise1 = ruleQuantifiedVariablesSubstitute.Apply(
+                axiom_equals_z,
+                new Dictionary<Variable, Term>
+                {
+                    [z] = add.Term(x, add.Term(y, _0))
+                },
+                new Quantifier(QuantifierType.All, x),
+                new Quantifier(QuantifierType.All, y));
         }
 
         [TestMethod]
