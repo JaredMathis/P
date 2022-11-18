@@ -1,3 +1,5 @@
+using Peano.Extensions.Msft;
+
 namespace Peano.Tests
 {
     [TestClass]
@@ -89,12 +91,27 @@ namespace Peano.Tests
         [TestMethod]
         public void term_generator()
         {
+            var term = GenerateTerm();
+        }
+
+        private static Random r = new Random(0);
+
+        private Term GenerateTerm()
+        {
             var functions = new[] { equals, implies, add };
 
             var variables = new[] { w, x, y, z };
             var constants = new[] { _0 };
 
-
+            var probability_of_function = 0.5f;
+            if (r.NextDouble() >= probability_of_function)
+            {
+                var f = functions.RandomElement(r);
+                var children = f.ChildrenCount.ToRange().Select(i => GenerateTerm()).ToArray();
+                return f.Term(children);
+            } 
+            var leaves = variables.Concat(constants).ToArray();
+            return leaves.RandomElement(r);
         }
 
         [TestMethod]

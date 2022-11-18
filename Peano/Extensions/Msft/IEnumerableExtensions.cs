@@ -8,6 +8,11 @@ namespace Peano.Extensions.Msft
 {
     public static class IEnumerableExtensions
     {
+        public static T RandomElement<T>(this IEnumerable<T> t, Random r)
+        {
+            var length = t.Count();
+            return t.ElementAt(r.Next() % length);
+        }
         public static T Second<T>(this IEnumerable<T> t)
         {
             return t.ElementAt(1);
