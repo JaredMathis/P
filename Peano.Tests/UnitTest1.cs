@@ -35,8 +35,8 @@ namespace Peano.Tests
                     equals.Term(x, y),
                     equals.Term(y, x)
                     ),
-                new Quantifier(QuantifierType.All, y),
-                new Quantifier(QuantifierType.All, x)
+                new Quantifier(QuantifierType.All, x),
+                new Quantifier(QuantifierType.All, y)
                 );
 
             axiom_peano6 = new QuantifiedTerm(
@@ -56,6 +56,13 @@ namespace Peano.Tests
                 new Quantifier(QuantifierType.All, y)
                 );
 
+        }
+        [TestMethod]
+        public void axiom_equals_commutes_toString()
+        {
+            var a = axiom_equals_commutes.ToString();
+
+            Assert.AreEqual(a, "all x all y implies(equals(x,y),equals(y,x))");
         }
 
         [TestMethod]
