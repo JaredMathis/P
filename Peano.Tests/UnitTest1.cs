@@ -133,9 +133,6 @@ namespace Peano.Tests
             var i = ruleEqualsSubstitute.Apply(c, h, 0);
 
             Assert.AreEqual(i.ToString(), "all x all y equals(add(x,add(y,0)),add(add(x,y),0))");
-
-            //var f 
-            //Assert.AreEqual(f.ToString(), "all x all y equals(add(x,y),add(add(x,y),0))");
         }
 
         [TestMethod]
