@@ -5,6 +5,7 @@ namespace Peano.Tests
     {
         private RuleQuantifiedVariablesSubstitute ruleQuantifiedVariablesSubstitute;
         private RuleEqualsSubstitute ruleEqualsSubstitute;
+        private QuantifiedTerm axiom_equals_commutes;
         private QuantifiedTerm axiom_peano6;
         private QuantifiedTerm exercise1;
         private Variable x;
@@ -13,12 +14,14 @@ namespace Peano.Tests
         private FunctionType equals;
         private FunctionType add;
         private Variable _0;
+        private FunctionType implies;
 
         [TestInitialize]
         public void TestInitialize()
         {
             _0 = new Variable() { Name = "0" };
             equals = new FunctionType("equals");
+            implies = new FunctionType("implies");
             add = new FunctionType("add");
             x = new Variable() { Name = "x" };
             y = new Variable() { Name = "y" };
@@ -26,6 +29,15 @@ namespace Peano.Tests
 
             ruleQuantifiedVariablesSubstitute = new RuleQuantifiedVariablesSubstitute();
             ruleEqualsSubstitute = new RuleEqualsSubstitute();
+
+            axiom_equals_commutes = new QuantifiedTerm(
+                implies.Term(
+                    equals.Term(x, y),
+                    equals.Term(y, x)
+                    ),
+                new Quantifier(QuantifierType.All, y),
+                new Quantifier(QuantifierType.All, x)
+                );
 
             axiom_peano6 = new QuantifiedTerm(
                 equals.Term(
@@ -80,6 +92,8 @@ namespace Peano.Tests
                 new Quantifier(QuantifierType.All, y));
 
             Assert.AreEqual(e.ToString(), "all x all y equals(add(add(x,y),0),add(x,y))");
+
+
         }
 
         [TestMethod]
