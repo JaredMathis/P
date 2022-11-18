@@ -91,25 +91,36 @@ namespace Peano.Tests
         [TestMethod]
         public void term_generator()
         {
-            var term = GenerateTerm();
+            for (int i = 0; i < 1000000; i++)
+            {
+                var term = GenerateTerm(2);
+                if (term.ToString().Equals("add(x,add(y,0))"))
+                {
+
+                }
+            }
+
         }
 
         private static Random r = new Random(0);
 
-        private Term GenerateTerm()
+        private Term GenerateTerm(int maxDeth)
         {
             var functions = new[] { equals, implies, add };
 
             var variables = new[] { w, x, y, z };
             var constants = new[] { _0 };
 
-            var probability_of_function = 0.5f;
-            if (r.NextDouble() >= probability_of_function)
+            if (maxDeth >= 1)
             {
-                var f = functions.RandomElement(r);
-                var children = f.ChildrenCount.ToRange().Select(i => GenerateTerm()).ToArray();
-                return f.Term(children);
-            } 
+                var probability_of_function = 0.5f;
+                if (r.NextDouble() >= probability_of_function)
+                {
+                    var f = functions.RandomElement(r);
+                    var children = f.ChildrenCount.ToRange().Select(i => GenerateTerm(maxDeth - 1)).ToArray();
+                    return f.Term(children);
+                }
+            }
             var leaves = variables.Concat(constants).ToArray();
             return leaves.RandomElement(r);
         }
